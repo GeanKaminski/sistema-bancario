@@ -1,0 +1,5 @@
+Se o saldo for diferente de 0 -> Não alterar status aberta no bd
+
+Movimentação -> Saque, Depósito, Transferência
+
+Limite, Saldo, etc -> São double
