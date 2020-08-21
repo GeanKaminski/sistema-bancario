@@ -8,6 +8,7 @@
 
     <title>Banco - PHP</title>
   </head>
+  
   <body>
     <h1>Opções</h1>
     <a href="abertura.php"><button type="button" class="btn btn-primary">Abrir Conta</button></a>
