@@ -1,10 +1,7 @@
 <?php 
 
-    include 'Modelo/Conta.php';
-    include 'BD/conexao.php';
-
     $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
-    $numContaDepositar = $separaigual['1'];
+    $numConta = $separaigual['1'];
 
 ?>
 
@@ -50,12 +47,12 @@
     <section class="bg-light text-center">
         <div class="container">
             <h1>Depósito</h1>
-            <h2>Conta <?php echo $numContaDepositar ?></h2>
+            <h2>Conta <?php echo $numConta ?></h2>
 
             <form action="operaDeposito.php" method="POST">
                 <p>Valor do depósito: </p>
                 <input type="number" name="deposito">
-                <input type="hidden" name="numConta" value="<?php echo $numContaDepositar; ?>">
+                <input type="hidden" name="numConta" value="<?php echo $numConta; ?>">
                 <input type="submit" value="Submit">
             </form>
         </div>

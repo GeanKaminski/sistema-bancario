@@ -1,3 +1,11 @@
+<?php
+
+include "Auxiliar/auxiliar.php";
+$outputHtmlOrigem = retornaSelectDeContasOrigem();
+$outputHtmlDestino = retornaSelectDeContasDestino();
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -40,44 +48,19 @@
     <section class="bg-light text-center">
         <div class="container">
             <form action="operaTransferencia.php" method="POST">
+
                 <span> Transferir da conta: </span>
-                <?php
-    include "BD/conexao.php";
-    $con = consultar_contas_abertas($mysqli_connection);
-    $optionsHtml = '';
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="sacado">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
-
+                <?php echo $outputHtmlOrigem; ?>
                 <span>para a conta: </span>
+                <?php echo $outputHtmlDestino; ?>
 
-                <?php
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="beneficiario">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
                 <br>
                 <br>
+
                 <span> Valor da transferência: </span>
                 <input type="number" name="valor">
                 <input type="submit" value="Submit">
+                
             </form>
             <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
         </div>

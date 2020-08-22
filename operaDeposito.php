@@ -1,18 +1,13 @@
 <?php
 
-include 'BD/conexao.php'; 
+include 'Modelo/Banco.php';
 
-$valorDeposito = (float)$_POST['deposito'];
-$numeroConta = $_POST['numConta'];
-$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
-$saldoAtual = (float)$saldoArray['saldo'];
+$valor = (float)$_POST['deposito'];
+$numConta = $_POST['numConta'];
 
-$novoSaldo = $saldoAtual + $valorDeposito;
-$tipo = 1; //crédito
-$descricao = 'Depósito';
+$banco = new Banco();
+$banco->deposito($numConta, $valor);
 
-atualiza_saldo($mysqli_connection, $novoSaldo, $numeroConta);
-inclui_movimento($mysqli_connection, $numeroConta, $tipo, $valorDeposito, $descricao);
 
 ?>
 

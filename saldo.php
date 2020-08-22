@@ -1,12 +1,12 @@
 <?php
 
-include 'BD/conexao.php';
+include 'Modelo/Banco.php';
 
 $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
-$numeroConta = $separaigual['1'];
+$numConta = $separaigual['1'];
 
-$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
-$saldo = (float)$saldoArray['saldo'];
+$banco = new Banco();
+//$saldo = $banco->emitirSaldo($numConta);
 
 ?>
 
@@ -52,7 +52,7 @@ $saldo = (float)$saldoArray['saldo'];
     <section class="bg-light text-center">
         <div class="container">
 
-        <p>O saldo da conta <?php echo $numeroConta ?> é <?php echo $saldo ?></p>
+        <p>O saldo da conta <?php echo $numConta ?> é <?php $banco->emitirSaldo($numConta); ?></p>
         </div>
     </section>
 

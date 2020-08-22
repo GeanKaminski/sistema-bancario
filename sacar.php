@@ -1,10 +1,9 @@
 <?php 
 
-    include 'Modelo/Conta.php';
     include 'BD/conexao.php';
 
     $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
-    $numContaSacar = $separaigual['1'];
+    $numConta = $separaigual['1'];
 
 ?>
 
@@ -50,12 +49,12 @@
     <section class="bg-light text-center">
         <div class="container">
             <h1>Saque</h1>
-            <h2>Conta <?php echo $numContaSacar ?></h2>
+            <h2>Conta <?php echo $numConta ?></h2>
 
             <form action="operaSaque.php" method="POST">
                 <p>Valor do saque: </p>
                 <input type="number" name="saque">
-                <input type="hidden" name="numConta" value="<?php echo $numContaSacar; ?>">
+                <input type="hidden" name="numConta" value="<?php echo $numConta; ?>">
                 <input type="submit" value="Submit">
             </form>
         </div>

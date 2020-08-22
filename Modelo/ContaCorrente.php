@@ -1,19 +1,40 @@
 <?php
 
-include 'Conta.php';
-
-class ContaCorrente extends Conta
-{
+class ContaCorrente 
+{   
     protected $movimentos = array();
+    protected $saldo;
+    protected $limite;
+    protected $aberta;
 
-    public function transfere(float $valorATransferir, Conta $contaDestino): void
+    public function __construct(float $limite)
     {
-        if ($valorATransferir > $this->saldo) {
-            echo "Saldo indisponível";
-            return;
-        }
-
-        $this->sacar($valorATransferir);
-        $contaDestino->depositar($valorATransferir);
+        $this->limite = $limite;
+        $this->saldo = 0;
+        $this->aberta = true;
     }
+
+    public function getSaldo()
+    {
+        return $this->saldo;
+    }
+
+    public function getLimite()
+    {
+        return $this->limite;
+    }
+
+    public function getAberta()
+    {
+        return $this->aberta;
+    }
+
+    public function adicionaMovimento(string $descricao, float $valor, int $tipo)
+    {
+        $movimento = array();
+        array_push($movimento, $descricao, $valor, $tipo);
+        array_push($this->movimentos, $movimento);
+    }
+
+   
 }

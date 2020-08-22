@@ -1,15 +1,11 @@
 <?php 
 
-include 'Modelo/ContaCorrente.php';
-include 'BD/conexao.php';
+include 'Modelo/Banco.php';
 
 $limite = (float)$_POST['limite'];
 
-$conta = new ContaCorrente($limite);
-$saldo = $conta->recuperaSaldo();
-$aberta = $conta->recuperaAberta();
-
-gravar_conta($mysqli_connection, $limite, $saldo, $aberta);
+$banco = new Banco();
+$banco->abrirConta($limite);
 
 ?>
 

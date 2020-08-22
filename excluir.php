@@ -1,18 +1,21 @@
 <?php 
 
-    include 'Modelo/Conta.php';
     include 'BD/conexao.php';
 
     $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
-    $numContaDeletar = $separaigual['1'];
+    $numConta = $separaigual['1'];
 
-    $saldoArray = recupera_saldo($mysqli_connection, $numContaDeletar);
-    $saldo = (float)$saldoArray['saldo'];
+    $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$numConta'";
+    $conexao = conexao();
+    $saldoSQL = mysqli_query($conexao, $sqlSaldo);
+    $saldo = mysqli_fetch_assoc($saldoSQL);
+    $saldoAtual = (float)$saldo['saldo'];
 
-    if($saldo != 0){
+    if($saldoAtual != 0){
         $mensagem = "A conta nao pode possuir saldo para ser encerrada";
     } else {
-        fechar_conta($mysqli_connection, $numContaDeletar);
+        $sqlFecha = "UPDATE contas SET aberta = 0 WHERE numConta = '$numConta'"; 
+        mysqli_query($conexao, $sqlFecha);
         $mensagem = "Conta encerrada com sucesso!";
     }
     

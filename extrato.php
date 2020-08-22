@@ -1,13 +1,16 @@
 <?php
 
-include 'BD/conexao.php';
+include 'Modelo/Banco.php';
+
+$banco = new Banco();
 
 $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
-$numeroConta = $separaigual['1'];
+$numConta = $separaigual['1'];
 
-$extratoArray = recupera_extrato($mysqli_connection, $numeroConta);
-$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
-$saldo = (float)$saldoArray['saldo'];
+$sqlExtrato = "SELECT * FROM movimentos WHERE numConta = '$numConta'"; 
+$conexao = conexao();
+$extratoSQL = mysqli_query($conexao, $sqlExtrato);
+$extratoArray = mysqli_fetch_all($extratoSQL);
 
 $tipoArray = array();
 $valorArray = array();
@@ -62,7 +65,7 @@ foreach($extratoArray as $value) {
 
     <section class="bg-light text-center">
         <div class="container">
-            <p> Extrato da conta <?php echo $numeroConta ?> </p>
+            <p> Extrato da conta <?php echo $numConta ?> </p>
             <table class="table table-striped">
 
                 <thead>
@@ -90,7 +93,7 @@ foreach($extratoArray as $value) {
                     <tr>
                         <td></td>
                         <td><strong>Saldo Atual: </strong></td>
-                        <td><strong><?php echo $saldo ?> </strong></td>
+                        <td><strong><?php $banco->emitirSaldo($numConta); ?> </strong></td>
                     </tr>
                 </tbody>
 

@@ -1,25 +1,12 @@
 <?php
 
-include 'BD/conexao.php'; 
+include 'Modelo/Banco.php';
 
-$valorSaque = (float)$_POST['saque'];
-$numeroConta = $_POST['numConta'];
-$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
-$saldoAtual = (float)$saldoArray['saldo'];
-//$limiteAtual = (float)$saldoArray['limite'];
+$valor = (float)$_POST['saque'];
+$numConta = $_POST['numConta'];
 
-if ($valorSaque > $saldoAtual){
-    $mensagem = "Saldo insuficiente!";
-//} elseif ($valorSaque > $limiteAtual) {
-//    $mensagem = "Valor não pode ser maior que o limite";
-} else {
-    $novoSaldo = $saldoAtual - $valorSaque;
-    $tipo = -1; //débito
-    $descricao = 'Saque';
-    atualiza_saldo($mysqli_connection, $novoSaldo, $numeroConta);
-    inclui_movimento($mysqli_connection, $numeroConta, $tipo, $valorSaque, $descricao);
-    $mensagem = "Saque realizado com sucesso!";
-}
+$banco = new Banco();
+$banco->saque($numConta, $valor);
 
 ?>
 
@@ -64,7 +51,7 @@ if ($valorSaque > $saldoAtual){
 
     <section class="bg-light text-center">
         <div class="container">
-            <p><?php echo $mensagem; ?></p>
+            <p><?php echo "Saque realizado com sucesso!"; ?></p>
             <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
         </div>
     </section>

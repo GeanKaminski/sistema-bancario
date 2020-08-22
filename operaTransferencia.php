@@ -1,36 +1,15 @@
 <?php
 
-include 'BD/conexao.php'; 
+include 'Modelo/Banco.php';
 
-$valorTransferencia = (float)$_POST['valor'];
-$numeroContaSacado = $_POST['sacado'];
-$numeroContaBeneficiario = $_POST['beneficiario'];
+$valor = (float)$_POST['valor'];
+$contaOrigem = $_POST['origem'];
+$contaDestino = $_POST['destino'];
 
-$saldoArray = recupera_saldo($mysqli_connection, $numeroContaSacado);
-$saldoAtualSacado = (float)$saldoArray['saldo'];
-$saldoArray = recupera_saldo($mysqli_connection, $numeroContaBeneficiario);
-$saldoAtualBeneficiario = (float)$saldoArray['saldo'];
-
-if ($valorTransferencia > $saldoAtualSacado){
-    $mensagem = "Saldo insuficiente para transferir";
-} elseif ($numeroContaSacado == $numeroContaBeneficiario){
-    $mensagem = "Impossível transferir para a mesma conta";
-} else {
-    $novoSaldoSacado = $saldoAtualSacado - $valorTransferencia;
-    atualiza_saldo($mysqli_connection, $novoSaldoSacado, $numeroContaSacado);
-    $novoSaldoBeneficiario = $saldoAtualBeneficiario + $valorTransferencia;
-    atualiza_saldo($mysqli_connection, $novoSaldoBeneficiario, $numeroContaBeneficiario);
-    $mensagem = "Transferência realizada com sucesso!";
-
-    $tipoSacado = -1; //débito
-    $tipoBeneficiario = 1; //crédito
-    $descricao = 'Transferência';
-
-    inclui_movimento($mysqli_connection, $numeroContaSacado, $tipoSacado, $valorTransferencia, $descricao);
-    inclui_movimento($mysqli_connection, $numeroContaBeneficiario, $tipoBeneficiario, $valorTransferencia, $descricao);
-}
+$banco = new Banco();
+$banco->transferencia($contaOrigem, $contaDestino, $valor);
+ 
 ?>
-
 
 <!doctype html>
 <html lang="pt-br">
@@ -73,7 +52,7 @@ if ($valorTransferencia > $saldoAtualSacado){
 
     <section class="bg-light text-center">
         <div class="container">
-            <p><?php echo $mensagem; ?></p>
+            <p><?php echo "Transferência realizada com sucesso!"; ?></p>
             <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
         </div>
     </section>

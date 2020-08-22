@@ -1,6 +1,9 @@
 <?php 
-include "BD/conexao.php"; 
-$con = consultar_contas_abertas($mysqli_connection);
+
+include "Auxiliar/auxiliar.php";
+
+$contasAbertas = retornaContasAbertas();
+
 ?>
 
 <!doctype html>
@@ -51,7 +54,7 @@ $con = consultar_contas_abertas($mysqli_connection);
                     <th>Saldo</th>
                     <th>Ação</th>
                 </tr>
-                <?php while($dado = $con->fetch_array()) { ?>
+                <?php while($dado = $contasAbertas->fetch_array()) { ?>
                 <tr>
                     <td><?php echo $dado['numConta']; ?></td>
                     <td><?php echo $dado['saldo']; ?></td>
