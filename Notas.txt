@@ -1,2 +1,1 @@
-Limite, Saldo, etc -> São double
 

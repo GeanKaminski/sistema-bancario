@@ -1,6 +1,6 @@
 <?php
 
-include 'conexao.php'; 
+include 'BD/conexao.php'; 
 
 $valorSaque = (float)$_POST['saque'];
 $numeroConta = $_POST['numConta'];

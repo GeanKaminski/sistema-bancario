@@ -1,6 +1,6 @@
 <?php
 
-include 'conexao.php';
+include 'BD/conexao.php';
 
 $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
 $numeroConta = $separaigual['1'];

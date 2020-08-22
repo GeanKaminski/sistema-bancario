@@ -1,5 +1,5 @@
 <?php 
-include 'conexao.php'; 
+include 'BD/conexao.php'; 
 $con = consultar_contas_abertas($mysqli_connection);
 ?>
 

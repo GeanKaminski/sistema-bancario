@@ -42,7 +42,7 @@
             <form action="operaTransferencia.php" method="POST">
                 <span> Transferir da conta: </span>
                 <?php
-    include "conexao.php";
+    include "BD/conexao.php";
     $con = consultar_contas_abertas($mysqli_connection);
     $optionsHtml = '';
     while ($row = $con->fetch_array()) {

@@ -1,6 +1,6 @@
 <?php
 
-include 'conexao.php'; 
+include 'BD/conexao.php'; 
 
 $valorTransferencia = (float)$_POST['valor'];
 $numeroContaSacado = $_POST['sacado'];

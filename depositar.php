@@ -1,7 +1,7 @@
 <?php 
 
-    include 'Conta.php';
-    include 'conexao.php';
+    include 'Modelo/Conta.php';
+    include 'BD/conexao.php';
 
     $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
     $numContaDepositar = $separaigual['1'];

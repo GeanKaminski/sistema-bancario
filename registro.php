@@ -1,7 +1,7 @@
 <?php 
 
-include 'ContaCorrente.php';
-include 'conexao.php';
+include 'Modelo/ContaCorrente.php';
+include 'BD/conexao.php';
 
 $limite = (float)$_POST['limite'];
 
