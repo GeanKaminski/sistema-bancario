@@ -6,6 +6,8 @@ $separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
 $numeroConta = $separaigual['1'];
 
 $extratoArray = recupera_extrato($mysqli_connection, $numeroConta);
+$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
+$saldo = (float)$saldoArray['saldo'];
 
 $tipoArray = array();
 $valorArray = array();
@@ -75,21 +77,26 @@ foreach($extratoArray as $value) {
                     <?php for($dado = 0; $dado < count($tipoArray); $dado++) { ?>
                     <tr>
                         <td><?php echo $descricaoArray[$dado];  ?></td>
-                        <td><?php echo $valorArray[$dado]; ?></td>
                         <td><?php                  
                     if ($tipoArray[$dado] == 1){
                         echo "Crédito";
                     } else {
                         echo "Débito";
                     }
-                 } ?></td>
+                  ?></td>
+                        <td><?php echo $valorArray[$dado]; } ?></td>
+                    </tr>
 
+                    <tr>
+                        <td></td>
+                        <td><strong>Saldo Atual: </strong></td>
+                        <td><strong><?php echo $saldo ?> </strong></td>
                     </tr>
                 </tbody>
 
             </table>
-        
-        <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
+
+            <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
 
         </div>
     </section>

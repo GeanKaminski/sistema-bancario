@@ -6,9 +6,12 @@ $valorSaque = (float)$_POST['saque'];
 $numeroConta = $_POST['numConta'];
 $saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
 $saldoAtual = (float)$saldoArray['saldo'];
+//$limiteAtual = (float)$saldoArray['limite'];
 
 if ($valorSaque > $saldoAtual){
     $mensagem = "Saldo insuficiente!";
+//} elseif ($valorSaque > $limiteAtual) {
+//    $mensagem = "Valor não pode ser maior que o limite";
 } else {
     $novoSaldo = $saldoAtual - $valorSaque;
     $tipo = -1; //débito
