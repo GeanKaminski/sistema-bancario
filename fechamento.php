@@ -1,39 +1,70 @@
 <?php 
 include("conexao.php"); 
 $con = consultar_contas_abertas($mysqli_connection);
-?> 
+?>
 
 <!doctype html>
 <html lang="pt-br">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom fonts  -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+        type="text/css">
 
     <title>Banco - PHP</title>
-  </head>
-  <body>
-    <h1>Fechamento de conta</h1>
-    
-    <table border="1"> 
-        <tr> 
-          <td>Número da conta</td> 
-          <td>Saldo</td> 
-          <td>Limite</td> 
-          <td>Ação</td> 
-        </tr> 
-        <?php while($dado = $con->fetch_array()) { ?> 
-        <tr> 
-          <td><?php echo $dado['numConta']; ?></td>
-          <td><?php echo $dado['saldo']; ?></td> 
-          <td><?php echo $dado['limite']; ?></td> 
-          <td> 
-            <a href="excluir.php?numConta=<?php echo $dado['numConta']; ?>">Fechar</a> 
-          </td> 
-        </tr> 
-        <?php } ?> 
-      </table> 
+</head>
 
-  </body>
+<body id="page-top">
+
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="btn btn-primary" href="#">Sign In</a>
+        </div>
+    </nav>
+
+
+    <header class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Início</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-light text-center">
+        <div class="container">
+
+            <table border="1" class="table table-striped">
+                <tr>
+                    <th>Número da conta</th>
+                    <th>Saldo</th>
+                    <th>Ação</th>
+                </tr>
+                <?php while($dado = $con->fetch_array()) { ?>
+                <tr>
+                    <td><?php echo $dado['numConta']; ?></td>
+                    <td><?php echo $dado['saldo']; ?></td>
+                    <td>
+                        <a href="excluir.php?numConta=<?php echo $dado['numConta']; ?>">Fechar</a>
+                    </td>
+                </tr>
+                <?php } ?>
+            </table>
+            <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
+        </div>
+
+    </section>
+</body>
+
 </html>

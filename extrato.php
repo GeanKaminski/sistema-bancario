@@ -1,15 +1,21 @@
-<?php 
+<?php
 
-include 'ContaCorrente.php';
 include 'conexao.php';
 
-$limite = (float)$_POST['limite'];
+$separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
+$numeroConta = $separaigual['1'];
 
-$conta = new ContaCorrente($limite);
-$saldo = $conta->recuperaSaldo();
-$aberta = $conta->recuperaAberta();
+$extratoArray = recupera_extrato($mysqli_connection, $numeroConta);
 
-gravar_conta($mysqli_connection, $limite, $saldo, $aberta);
+$tipoArray = array();
+$valorArray = array();
+$descricaoArray = array();
+
+foreach($extratoArray as $value) {
+    array_push($tipoArray, $value[2]);
+    array_push($valorArray, $value[1]);
+    array_push($descricaoArray, $value[3]);
+}
 
 ?>
 
@@ -54,11 +60,38 @@ gravar_conta($mysqli_connection, $limite, $saldo, $aberta);
 
     <section class="bg-light text-center">
         <div class="container">
-            <p><?php echo "Conta aberta com sucesso!"; ?></p>
-            <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
+            <p> Extrato da conta <?php echo $numeroConta ?> </p>
+            <table class="table table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Tipo da operação</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php for($dado = 0; $dado < count($tipoArray); $dado++) { ?>
+                    <tr>
+                        <td><?php echo $descricaoArray[$dado];  ?></td>
+                        <td><?php echo $valorArray[$dado]; ?></td>
+                        <td><?php                  
+                    if ($tipoArray[$dado] == 1){
+                        echo "Crédito";
+                    } else {
+                        echo "Débito";
+                    }
+                 } ?></td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        
+        <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
+
         </div>
     </section>
 
 </body>
-
-</html>

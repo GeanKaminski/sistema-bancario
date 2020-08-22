@@ -1,3 +1,37 @@
+<?php
+
+include 'conexao.php'; 
+
+$valorTransferencia = (float)$_POST['valor'];
+$numeroContaSacado = $_POST['sacado'];
+$numeroContaBeneficiario = $_POST['beneficiario'];
+
+$saldoArray = recupera_saldo($mysqli_connection, $numeroContaSacado);
+$saldoAtualSacado = (float)$saldoArray['saldo'];
+$saldoArray = recupera_saldo($mysqli_connection, $numeroContaBeneficiario);
+$saldoAtualBeneficiario = (float)$saldoArray['saldo'];
+
+if ($valorTransferencia > $saldoAtualSacado){
+    $mensagem = "Saldo insuficiente para transferir";
+} elseif ($numeroContaSacado == $numeroContaBeneficiario){
+    $mensagem = "Impossível transferir para a mesma conta";
+} else {
+    $novoSaldoSacado = $saldoAtualSacado - $valorTransferencia;
+    atualiza_saldo($mysqli_connection, $novoSaldoSacado, $numeroContaSacado);
+    $novoSaldoBeneficiario = $saldoAtualBeneficiario + $valorTransferencia;
+    atualiza_saldo($mysqli_connection, $novoSaldoBeneficiario, $numeroContaBeneficiario);
+    $mensagem = "Transferência realizada com sucesso!";
+
+    $tipoSacado = -1; //débito
+    $tipoBeneficiario = 1; //crédito
+    $descricao = 'Transferência';
+
+    inclui_movimento($mysqli_connection, $numeroContaSacado, $tipoSacado, $valorTransferencia, $descricao);
+    inclui_movimento($mysqli_connection, $numeroContaBeneficiario, $tipoBeneficiario, $valorTransferencia, $descricao);
+}
+?>
+
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -17,7 +51,7 @@
     <title>Banco - PHP</title>
 </head>
 
-<body>
+<body id="page-top">
 
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
@@ -31,7 +65,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Transferência</h1>
+                    <h1 class="mb-5">Início</h1>
                 </div>
             </div>
         </div>
@@ -39,46 +73,7 @@
 
     <section class="bg-light text-center">
         <div class="container">
-            <form action="operaTransferencia.php" method="POST">
-                <span> Transferir da conta: </span>
-                <?php
-    include "conexao.php";
-    $con = consultar_contas_abertas($mysqli_connection);
-    $optionsHtml = '';
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="sacado">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
-
-                <span>para a conta: </span>
-
-                <?php
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="beneficiario">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
-                <br>
-                <br>
-                <span> Valor da transferência: </span>
-                <input type="number" name="valor">
-                <input type="submit" value="Submit">
-            </form>
+            <p><?php echo $mensagem; ?></p>
             <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
         </div>
     </section>

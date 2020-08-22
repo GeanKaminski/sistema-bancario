@@ -1,3 +1,15 @@
+<?php
+
+include 'conexao.php';
+
+$separaigual  = explode("=", $_SERVER["REQUEST_URI"]);
+$numeroConta = $separaigual['1'];
+
+$saldoArray = recupera_saldo($mysqli_connection, $numeroConta);
+$saldo = (float)$saldoArray['saldo'];
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -17,7 +29,7 @@
     <title>Banco - PHP</title>
 </head>
 
-<body>
+<body id="page-top">
 
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
@@ -31,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Transferência</h1>
+                    <h1 class="mb-5">Início</h1>
                 </div>
             </div>
         </div>
@@ -39,50 +51,10 @@
 
     <section class="bg-light text-center">
         <div class="container">
-            <form action="operaTransferencia.php" method="POST">
-                <span> Transferir da conta: </span>
-                <?php
-    include "conexao.php";
-    $con = consultar_contas_abertas($mysqli_connection);
-    $optionsHtml = '';
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="sacado">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
 
-                <span>para a conta: </span>
-
-                <?php
-    while ($row = $con->fetch_array()) {
-      $optionsHtml .= '
-      <option value="' . $row["numConta"] . '">
-        ' . $row["numConta"] . '
-      </option>';
-    }
-    $outputHtml = '
-      <select name="beneficiario">
-        ' . $optionsHtml . '
-      </select>';
-    echo $outputHtml;
-    ?>
-                <br>
-                <br>
-                <span> Valor da transferência: </span>
-                <input type="number" name="valor">
-                <input type="submit" value="Submit">
-            </form>
-            <a href="index.php"><button type="button" class="btn btn-primary">Início</button></a>
+        <p>O saldo da conta <?php echo $numeroConta ?> é <?php echo $saldo ?></p>
         </div>
     </section>
 
 </body>
 
-</html>
