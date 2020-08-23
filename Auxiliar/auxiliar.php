@@ -22,7 +22,7 @@ function retornaSelectDeContasOrigem(){
     }
 
     $outputHtml = '
-      <select name="origem">
+      <select id="inputOrigem" class="form-control" name="origem">
         ' . $optionsHtml . '
       </select>';
       return $outputHtml;
@@ -41,7 +41,7 @@ function retornaSelectDeContasDestino(){
     }
 
     $outputHtml = '
-      <select name="destino">
+      <select id="inputDestino" class="form-control" name="destino">
         ' . $optionsHtml . '
       </select>';
       return $outputHtml;
