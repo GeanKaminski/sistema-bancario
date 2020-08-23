@@ -21,7 +21,7 @@ $contasAbertas = retornaContasAbertas();
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
 
 </head>
 
@@ -88,15 +88,6 @@ $contasAbertas = retornaContasAbertas();
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
-                        <form class="navbar-form">
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                    <i class="material-icons">search</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                        </form>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile"
@@ -134,7 +125,7 @@ $contasAbertas = retornaContasAbertas();
                                             <thead class=" text-primary">
                                                 <tr>
                                                     <th>Número da conta</th>
-                                                    <th>Saldo</th>
+                                                    <th>Saldo (R$)</th>
                                                     <th>Ação</th>
                                                 </tr>
                                             </thead>
@@ -145,7 +136,10 @@ $contasAbertas = retornaContasAbertas();
                                                     <td><?php echo $dado['saldo']; ?></td>
                                                     <td>
                                                         <a
-                                                            href="excluir.php?numConta=<?php echo $dado['numConta']; ?>">Fechar</a>
+                                                            href="excluir.php?numConta=<?php echo $dado['numConta']; ?>">
+                                                            <i class="material-icons">disabled_by_default</i>
+                                                            <p> Encerrar </p>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php } ?>

@@ -20,9 +20,13 @@ class Banco
 
     public function abrirConta(float $limite): void
     {
-        $conta = new ContaCorrente($limite);
-        $this->adicionaConta($conta);
-        $mensagem = "Conta aberta com sucesso!";
+        if ($limite >= 0) {
+            $conta = new ContaCorrente($limite);
+            $this->adicionaConta($conta);
+            $mensagem = "Conta aberta com sucesso!";
+        } else {
+            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+        }
         echo $mensagem;
     }
 
@@ -43,6 +47,8 @@ class Banco
 
         if ($valor > $saldoAtual){
             $mensagem = "Saldo insuficiente!";
+        } elseif ($valor < 0) {
+            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
         } else {
             $novoSaldo = $saldoAtual - $valor;
             $tipo = -1; //débito
@@ -58,26 +64,33 @@ class Banco
 
     public function deposito(int $numConta, float $valor): void
     {
-        $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$numConta'";
-        $conexao = conexao();
-        $saldoSQL = mysqli_query($conexao, $sqlSaldo);
-        $saldo = mysqli_fetch_assoc($saldoSQL);
-        $saldoAtual = (float)$saldo['saldo'];
+        if ($valor < 0) {
+            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+        } else {
+            $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$numConta'";
+            $conexao = conexao();
+            $saldoSQL = mysqli_query($conexao, $sqlSaldo);
+            $saldo = mysqli_fetch_assoc($saldoSQL);
+            $saldoAtual = (float)$saldo['saldo'];
 
-        $novoSaldo = $saldoAtual + $valor;
-        $sqlSaldo = "UPDATE contas SET saldo = '$novoSaldo' WHERE numConta = '$numConta'"; 
-        mysqli_query($conexao, $sqlSaldo);
+            $novoSaldo = $saldoAtual + $valor;
+            $sqlSaldo = "UPDATE contas SET saldo = '$novoSaldo' WHERE numConta = '$numConta'"; 
+            mysqli_query($conexao, $sqlSaldo);
 
-        $tipo = 1; //crédito
-        $descricao = 'Depósito';
-        $sqlGravar = "INSERT INTO movimentos (numConta, tipo, valor, descricao) VALUES ('$numConta', '$tipo', '$valor', '$descricao')";
-        mysqli_query($conexao, $sqlGravar) or die (mysqli_error($mysqli_connection));
-        $mensagem = "Depósito realizado com sucesso!";
+            $tipo = 1; //crédito
+            $descricao = 'Depósito';
+            $sqlGravar = "INSERT INTO movimentos (numConta, tipo, valor, descricao) VALUES ('$numConta', '$tipo', '$valor', '$descricao')";
+            mysqli_query($conexao, $sqlGravar) or die (mysqli_error($mysqli_connection));
+            $mensagem = "Depósito realizado com sucesso!";
+        }
         echo $mensagem;
     }
 
     public function transferencia(int $contaOrigem, int $contaDestino, float $valor): void
     {
+        if ($valor < 0) {
+            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+        } else {
         $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$contaOrigem'";
         $conexao = conexao();
         $saldoSQL = mysqli_query($conexao, $sqlSaldo);
@@ -92,7 +105,7 @@ class Banco
         if ($valor > $saldoOrigem){
             $mensagem = "Saldo insuficiente para transferir";
         } elseif ($contaOrigem == $contaDestino){
-            $mensagem = "Impossível transferir para a mesma conta";
+            $mensagem = "Impossível transferir para a mesma conta. <br> Tente novamente.";
         } else {
             $novoSaldoOrigem = $saldoOrigem - $valor;
             $sqlSaldo = "UPDATE contas SET saldo = '$novoSaldoOrigem' WHERE numConta = '$contaOrigem'"; 
@@ -112,6 +125,7 @@ class Banco
 
             $mensagem = "Transferência realizada com sucesso!";
         }
+    }
         echo $mensagem;
     }
 

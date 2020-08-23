@@ -5,7 +5,6 @@ include 'Modelo/Banco.php';
 $limite = (float)$_POST['limite'];
 
 $banco = new Banco();
-$banco->abrirConta($limite);
 
 ?>
 
@@ -24,7 +23,8 @@ $banco->abrirConta($limite);
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+
 
 </head>
 
@@ -91,15 +91,6 @@ $banco->abrirConta($limite);
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
-                        <form class="navbar-form">
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                    <i class="material-icons">search</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                        </form>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile"
@@ -124,9 +115,7 @@ $banco->abrirConta($limite);
 
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">             
-                        <h3><?php echo "Conta aberta com sucesso!"; ?></h3>                 
-                    </div>
+                        <p><?php echo $banco->abrirConta($limite); ?></p>                 
                 </div>
             </div>
 

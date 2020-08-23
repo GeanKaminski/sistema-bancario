@@ -7,7 +7,7 @@ $contaOrigem = $_POST['origem'];
 $contaDestino = $_POST['destino'];
 
 $banco = new Banco();
-$banco->transferencia($contaOrigem, $contaDestino, $valor);
+
  
 ?>
 
@@ -25,7 +25,8 @@ $banco->transferencia($contaOrigem, $contaDestino, $valor);
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+
 
 </head>
 
@@ -92,15 +93,6 @@ $banco->transferencia($contaOrigem, $contaDestino, $valor);
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
-                        <form class="navbar-form">
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                    <i class="material-icons">search</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                        </form>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile"
@@ -125,7 +117,7 @@ $banco->transferencia($contaOrigem, $contaDestino, $valor);
 
             <div class="content">
                 <div class="container-fluid">
-                    <p><?php echo "Transferência realizada com sucesso!"; ?></p>
+                    <p><?php echo $banco->transferencia($contaOrigem, $contaDestino, $valor); ?></p>
                 </div>
             </div>
 

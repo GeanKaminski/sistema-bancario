@@ -17,7 +17,7 @@ $contasAbertas = retornaContasAbertas();
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
 
 </head>
 
@@ -84,15 +84,6 @@ $contasAbertas = retornaContasAbertas();
                         <span class="navbar-toggler-icon icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
-                        <form class="navbar-form">
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                    <i class="material-icons">search</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                            </div>
-                        </form>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile"
@@ -120,20 +111,26 @@ $contasAbertas = retornaContasAbertas();
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
+
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">Saque/Depósito</h4>
-                                    <p class="card-category">Escolha a conta e a movimentação desejada</p>
+                                    <p class="card-category">Escolha a conta e a movimentação desejadas</p>
                                 </div>
+
                                 <div class="card-body">
+
                                     <div class="table-responsive">
+
                                         <table class="table table-striped">
+
                                             <thead class="text-primary">
                                                 <tr>
                                                     <th>Número da conta</th>
-                                                    <th>Saldo</th>
-                                                    <th>Limite</th>
+                                                    <th>Saldo (R$)</th>
+                                                    <th>Limite (R$)</th>
                                                     <th>Ação</th>
                                                 </tr>
+
                                             </thead>
                                             <tbody>
                                                 <?php while($dado = $contasAbertas->fetch_array()) { ?>
@@ -142,10 +139,14 @@ $contasAbertas = retornaContasAbertas();
                                                     <td><?php echo $dado['saldo']; ?></td>
                                                     <td><?php echo $dado['limite']; ?></td>
                                                     <td>
-                                                        <a
-                                                            href="sacar.php?numConta=<?php echo $dado['numConta']; ?>">Sacar</a>
-                                                        <a
-                                                            href="depositar.php?numConta=<?php echo $dado['numConta']; ?>">Depositar</a>
+                                                        <a href="sacar.php?numConta=<?php echo $dado['numConta']; ?>">
+                                                            <i class="material-icons">arrow_circle_up</i>
+                                                            <p> Sacar </p>
+                                                        </a>
+                                                        <a href="depositar.php?numConta=<?php echo $dado['numConta']; ?>">
+                                                            <i class="material-icons">arrow_circle_down</i>
+                                                            <p> Depositar </p>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 <?php } ?>
@@ -189,7 +190,7 @@ $contasAbertas = retornaContasAbertas();
         </div>
     </div>
 
-  
+
 </body>
 
 
