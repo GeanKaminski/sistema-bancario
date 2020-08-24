@@ -115,7 +115,7 @@ $banco = new Banco();
 
             <div class="content">
                 <div class="container-fluid">
-                        <p><?php echo $banco->abrirConta($limite); ?></p>                 
+                    <p><?php echo $banco->abrirConta($limite); ?></p>
                 </div>
             </div>
 
@@ -145,7 +145,7 @@ $banco = new Banco();
         </div>
     </div>
 
-   
+
 </body>
 
 

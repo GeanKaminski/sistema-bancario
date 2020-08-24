@@ -114,7 +114,7 @@ $contasAbertas = retornaContasAbertas();
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title ">Contas Abertas</h4>
-                                    <p class="card-category">Escolha a conta e a ação desejada</p>
+                                    <p class="card-category">Escolha a conta e selecione a ação desejada</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -132,13 +132,11 @@ $contasAbertas = retornaContasAbertas();
                                                 <tr>
                                                     <td><?php echo $dado['numConta']; ?></td>
                                                     <td>
-                                                        <a
-                                                            href="saldo.php?numConta=<?php echo $dado['numConta']; ?>">
+                                                        <a href="saldo.php?numConta=<?php echo $dado['numConta']; ?>">
                                                             <i class="material-icons">account_balance_wallet</i>
                                                             <p> Saldo </p>
                                                         </a>
-                                                        <a
-                                                            href="extrato.php?numConta=<?php echo $dado['numConta']; ?>">
+                                                        <a href="extrato.php?numConta=<?php echo $dado['numConta']; ?>">
                                                             <i class="material-icons">analytics</i>
                                                             <p> Extrato </p>
                                                         </a>
@@ -181,7 +179,7 @@ $contasAbertas = retornaContasAbertas();
         </div>
     </div>
 
-    
+
 </body>
 
 

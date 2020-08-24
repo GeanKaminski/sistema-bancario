@@ -70,7 +70,6 @@ $contasAbertas = retornaContasAbertas();
         </div>
 
         <div class="main-panel">
-            <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -104,17 +103,15 @@ $contasAbertas = retornaContasAbertas();
                     </div>
                 </div>
             </nav>
-            <!-- End Navbar -->
 
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">Saque/Depósito</h4>
-                                    <p class="card-category">Escolha a conta e a movimentação desejadas</p>
+                                    <p class="card-category">Escolha a conta e selecione a ação desejada</p>
                                 </div>
 
                                 <div class="card-body">
@@ -150,10 +147,8 @@ $contasAbertas = retornaContasAbertas();
                                                     </td>
                                                 </tr>
                                                 <?php } ?>
-                                            </tbody>s
+                                            </tbody>
                                         </table>
-
-
 
 
                                     </div>

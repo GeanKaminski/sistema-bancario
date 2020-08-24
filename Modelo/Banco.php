@@ -25,7 +25,7 @@ class Banco
             $this->adicionaConta($conta);
             $mensagem = "Conta aberta com sucesso!";
         } else {
-            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+            $mensagem = "Operação não permitida. <br> Informe um valor positivo.";
         }
         echo $mensagem;
     }
@@ -40,16 +40,23 @@ class Banco
     public function saque(int $numConta, float $valor): void
     {
         $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$numConta'";
+        $sqlLimite = "SELECT limite FROM contas WHERE numConta = '$numConta'";
         $conexao = conexao();
         $saldoSQL = mysqli_query($conexao, $sqlSaldo);
+        $limiteSQL = mysqli_query($conexao, $sqlLimite);
         $saldo = mysqli_fetch_assoc($saldoSQL);
+        $limite = mysqli_fetch_assoc($limiteSQL);
         $saldoAtual = (float)$saldo['saldo'];
+        $limiteConta = (float)$limite['limite'];
 
         if ($valor > $saldoAtual){
             $mensagem = "Saldo insuficiente!";
         } elseif ($valor < 0) {
-            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
-        } else {
+            $mensagem = "Operação não permitida. <br> Informe um valor positivo.";
+        } elseif ($valor > $limiteConta) {
+            $mensagem = "Operação não permitida. <br> O valor solicitado é maior do que o limite da conta.";
+        } 
+        else {
             $novoSaldo = $saldoAtual - $valor;
             $tipo = -1; //débito
             $descricao = 'Saque';
@@ -65,7 +72,7 @@ class Banco
     public function deposito(int $numConta, float $valor): void
     {
         if ($valor < 0) {
-            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+            $mensagem = "Operação não permitida. <br> Informe um valor positivo.";
         } else {
             $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$numConta'";
             $conexao = conexao();
@@ -87,9 +94,17 @@ class Banco
     }
 
     public function transferencia(int $contaOrigem, int $contaDestino, float $valor): void
-    {
+    {   
+        $sqlLimite = "SELECT limite FROM contas WHERE numConta = '$contaOrigem'";
+        $conexao = conexao();
+        $limiteSQL = mysqli_query($conexao, $sqlLimite);
+        $limite = mysqli_fetch_assoc($limiteSQL);
+        $limiteConta = (float)$limite['limite'];
+
         if ($valor < 0) {
-            $mensagem = "Ocorreu um erro inesperado. <br> Informe um valor positivo.";
+            $mensagem = "Operação não permitida. <br> Informe um valor positivo.";
+        } elseif ($valor > $limiteConta) {
+            $mensagem = "Operação não permitida. <br> O valor é maior do que o limite da conta.";
         } else {
         $sqlSaldo = "SELECT saldo FROM contas WHERE numConta = '$contaOrigem'";
         $conexao = conexao();
@@ -173,10 +188,8 @@ class Banco
 
             echo $valorArray[$dado]; }
 
-
-
     }
- 
+
 
 }
 

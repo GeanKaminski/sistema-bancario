@@ -103,8 +103,8 @@
 
             <div class="content">
                 <div class="container-fluid">
-                        <h1>Seja Bem-Vindo</h1>    
-                        <p> Selecione uma opção para continuar </p>            
+                    <h1>Seja Bem-Vindo</h1>
+                    <p> Selecione uma opção para continuar </p>
                 </div>
             </div>
 

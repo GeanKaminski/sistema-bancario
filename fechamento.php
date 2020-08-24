@@ -116,8 +116,8 @@ $contasAbertas = retornaContasAbertas();
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">Contas abertas</h4>
-                                    <p class="card-category">Escolha a conta desejada e clique em fechar</p>
+                                    <h4 class="card-title ">Contas Abertas</h4>
+                                    <p class="card-category">A conta não pode possuir saldo para ser encerrada</p>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

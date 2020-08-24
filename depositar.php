@@ -115,7 +115,8 @@
                     <form action="operaDeposito.php" method="POST">
                         <div class="form-group">
                             <label for="inputDeposito">Informe o valor do depósito (R$)</label>
-                            <input type="number" step="0.01"  required id="inputDeposito" class="form-control" name="deposito">
+                            <input type="number" step="0.01" required id="inputDeposito" class="form-control"
+                                name="deposito">
                             <input type="hidden" name="numConta" value="<?php echo $numConta; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
@@ -152,7 +153,7 @@
         </div>
     </div>
 
- 
+
 </body>
 
 

@@ -120,12 +120,13 @@ $outputHtmlDestino = retornaSelectDeContasDestino();
                             <?php echo $outputHtmlOrigem; ?>
                         </div>
                         <div class="form-group">
-                        <label for="inputDestino">para a conta</label>
+                            <label for="inputDestino">para a conta</label>
                             <?php echo $outputHtmlDestino; ?>
                         </div>
                         <div class="form-group">
                             <label for="inputTransferencia">Informe o valor (R$)</label>
-                            <input type="number" step="0.01"  required id="inputTransferencia" class="form-control" name="valor">
+                            <input type="number" step="0.01" required id="inputTransferencia" class="form-control"
+                                name="valor">
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
 
@@ -162,7 +163,7 @@ $outputHtmlDestino = retornaSelectDeContasDestino();
         </div>
     </div>
 
-   
+
 </body>
 
 
